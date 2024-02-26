@@ -1,0 +1,61 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.lanes {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.swim-lane {
+    width: 300px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 10px;
+    position: relative;
+}
+
+.heading {
+    margin-bottom: 20px;
+}
+
+.tasks {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    height: 400px;
+    overflow-y: auto;
+}
+
+.task {
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: move;
+}
+
+#add-task-form {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+#task-input {
+    flex: 1;
+    padding: 10px;
+}
+
+button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
