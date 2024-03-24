@@ -31,18 +31,6 @@ body {
     overflow-y: auto;
 }
 
-.task {
-    background-color: #f0f0f0;
-    padding: 10px;
-    margin-bottom: 10px;
-    cursor: move;
-}
-
-#add-task-form {
-    display: flex;
-    margin-bottom: 20px;
-}
-
 #task-input {
     flex: 1;
     padding: 10px;
