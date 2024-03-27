@@ -16,19 +16,28 @@ body {
     padding: 20px;
     margin: 10px;
     position: relative;
+    overflow: auto;
 }
 
 .heading {
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .tasks {
-    margin: 0;
-    padding: 0;
+    margin: 1rem 0;
+    padding: 1rem;
+    font-size: 1.2rem;
     list-style: none;
+    cursor: move;
     position: relative;
     height: 400px;
     overflow-y: auto;
+    display: flex;
+    border-radius: 5px;
+    color: #fff;
+    background-color: rgba(42, 158, 255, 0.8);
+    height: 10px;
 }
 
 #task-input {
@@ -47,3 +56,28 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: #0056b3;
 }
+
+.is-dragging {
+    scale: 1.05;
+    background: #0056b3;
+  }
+
+  nav {
+    background-color: rgba(0, 0, 0, 0.781);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  nav a {
+    color: #e4e4e4;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 0.5rem;
+  }
+
+  nav a:hover {
+    background-color: rgba(114, 105, 252, 0.1);
+    border-radius: 5px;
+  }
