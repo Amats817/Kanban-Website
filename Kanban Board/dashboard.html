@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kanban Dashboard</title>
+<link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Kanban Dashboard</h1>
+      <button id="create-board-btn">Create New Board</button>
+    </header>
+    <main id="boards-container">
+      <!-- Example board item -->
+      <div class="board-item">
+        <h2>Board Title</h2>
+        <p>Owner: User1</p>
+        <p>Members: User1, User2, User3</p>
+        <button class="view-board-btn">View Board</button>
+      </div>
+    </main>
+  </div>
+  <div id="create-board-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2>Create New Board</h2>
+      <form id="create-board-form">
+        <label for="board-title">Board Title:</label>
+        <input type="text" id="board-title" name="board-title" required>
+        <label for="board-members">Add Members (comma-separated):</label>
+        <input type="text" id="board-members" name="board-members">
+        <button type="submit">Create Board</button>
+      </form>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

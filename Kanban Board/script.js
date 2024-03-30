@@ -1,9 +1,5 @@
-//Drag Function
-let draggables = document.querySelectorAll(".tasks");
-let droppables = document.querySelectorAll(".swim-lane");
-
-// add event listener
-draggables.forEach((task) => {
+// Drag and Drop Functionality
+document.querySelectorAll(".tasks").forEach(task => {
   task.addEventListener("dragstart", () => {
     task.classList.add("is-dragging");
   });
@@ -12,12 +8,15 @@ draggables.forEach((task) => {
   });
 });
 
-droppables.forEach((zone) => {
-  zone.addEventListener("dragover", (e) => {
+document.querySelectorAll(".swim-lane").forEach(zone => {
+  zone.addEventListener("dragover", e => {
     e.preventDefault();
 
-    let bottomTask = insertAboveTask(zone, e.clientY);
-    let curTask = document.querySelector(".is-dragging");
+    const curTask = document.querySelector(".is-dragging");
+    if (!curTask) return;
+
+    const mouseY = e.clientY;
+    const bottomTask = findClosestTask(zone, mouseY);
 
     if (!bottomTask) {
       zone.appendChild(curTask);
@@ -27,56 +26,39 @@ droppables.forEach((zone) => {
   });
 });
 
-/// inserting task
-const insertAboveTask = (zone, mouseY) => {
-  const els = zone.querySelectorAll(".task:not(.is-dragging)");
-
-  let closestTask = null;
-  let closestOffset = Number.NEGATIVE_INFINITY;
-
-  // Find closest Task
-  els.forEach((task) => {
+// Function to find closest task to insert above
+const findClosestTask = (zone, mouseY) => {
+  const tasks = Array.from(zone.querySelectorAll(".tasks:not(.is-dragging)"));
+  return tasks.reduce((closest, task) => {
     const { top } = task.getBoundingClientRect();
-
     const offset = mouseY - top;
-
-    if (offset < 0 && offset > closestOffset) {
-      closestOffset = offset;
-      closestTask = task;
+    if (offset < 0 && offset > closest.offset) {
+      return { task, offset };
     }
-  });
-
-  return closestTask;
+    return closest;
+  }, { task: null, offset: Number.NEGATIVE_INFINITY }).task;
 };
 
-// Add Element Function
-const form = document.getElementById("add-task");
-const input = document.getElementById("task-input");
-const todoLane = document.getElementById("todo-lane");
-
-// Add element on form submission
-form.addEventListener("submit", (e) => {
+// Add Task Functionality
+document.getElementById("add-task").addEventListener("submit", e => {
   e.preventDefault();
-  const value = input.value;
+  const input = document.getElementById("task-input");
+  const value = input.value.trim();
 
   if (!value) return;
 
-  // Create new Task
   const newTask = document.createElement("p");
   newTask.classList.add("tasks");
   newTask.setAttribute("draggable", "true");
-  newTask.innerText = value;
+  newTask.textContent = value;
 
-  // add event listener
   newTask.addEventListener("dragstart", () => {
     newTask.classList.add("is-dragging");
   });
-
   newTask.addEventListener("dragend", () => {
     newTask.classList.remove("is-dragging");
   });
 
-  todoLane.appendChild(newTask);
-
+  document.getElementById("todo-tasks").appendChild(newTask);
   input.value = "";
 });
