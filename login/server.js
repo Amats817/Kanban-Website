@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const UserModel = require('./config'); // Assuming config.js is in the same directory
+const UserModel = require('./config');
 
 const app = express();
 const PORT = 3000;
@@ -40,9 +40,9 @@ app.post('/login', async (req, res) => {
     try {
         const user = await UserModel.findOne({ name, password });
         if (user) {
-            res.redirect('/dashboard'); // Redirect to dashboard if login is successful
+            res.sendFile(path.join(__dirname, '/public/dashboard.html'));
         } else {
-            res.status(401).json({ error: 'Invalid credentials' });
+            res.status(401).json({ error: 'Invalid username or password' });
         }
     } catch (err) {
         res.status(500).json({ error: err.message });
