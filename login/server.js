@@ -21,17 +21,14 @@ mongoose.connect("mongodb://localhost:27017/login-system", { useNewUrlParser: tr
 // Serve static files from the "public" directory
 app.use(express.static('public'));
 
-// Route for serving login.html
 app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/login.html'));
 });
 
-// Route for serving registration.html
 app.get('/register', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/registration.html'));
 });
 
-// Route for serving the root ("/") - serving login.html
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/login.html'));
 });
@@ -70,7 +67,6 @@ app.post('/register', async (req, res) => {
     }
 });
 
-// Start the server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
