@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const name = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-
+    
             try {
                 const response = await fetch('/login', {
                     method: 'POST',
@@ -16,19 +16,27 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                     body: JSON.stringify({ name, password })
                 });
-
-                const result = await response.json();
-                if (response.ok) {
+    
+                if (!response.ok) {
+                    throw new Error('Login failed');
+                }
+    
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    const result = await response.json();
                     alert(result.message);
+                    console.log('Redirecting to dashboard...');
                     window.location.href = 'dashboard.html';
                 } else {
-                    alert(result.error || 'Login failed');
+                    throw new Error('Invalid response format');
                 }
             } catch (err) {
                 console.error('Error:', err);
+                alert('An error occurred during login');
             }
         });
     }
+      
 
     if (registrationForm) {
         registrationForm.addEventListener('submit', async (e) => {
