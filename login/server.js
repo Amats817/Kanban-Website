@@ -40,7 +40,7 @@ app.post('/login', async (req, res) => {
     try {
         const user = await UserModel.findOne({ name, password });
         if (user) {
-            res.sendFile(path.join(__dirname, '/public/dashboard.html'));
+            res.status(200).json({ message: 'Login successful', redirectTo: '/dashboard.html' });
         } else {
             res.status(401).json({ error: 'Invalid username or password' });
         }
@@ -48,6 +48,7 @@ app.post('/login', async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
 
 // API endpoint for user registration
 app.post('/register', async (req, res) => {
