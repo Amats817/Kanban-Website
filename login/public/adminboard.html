@@ -1,4 +1,4 @@
-<!-- dashboard.html for normal users -->
+<!-- adminboard.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,10 +11,9 @@
   <div class="container">
     <header>
       <h1>Kanban Dashboard</h1>
-      <button id="create-board-btn" disabled>Create New Board</button>
+      <button id="create-board-btn">Create New Board</button>
     </header>
     <main id="boards-container">
-      <!-- Example board item -->
       <div class="board-item">
         <h2>Board Title</h2>
         <p>Owner: User1</p>
@@ -30,10 +29,11 @@
       <form id="create-board-form">
         <label for="board-title">Board Title:</label>
         <input type="text" id="board-title" name="board-title" required>
-        <!-- Add Members field (comma-separated) if needed -->
         <label for="board-members">Add Members (comma-separated):</label>
         <input type="text" id="board-members" name="board-members">
         <button type="submit">Create Board</button>
+        <p id="confirmation-msg" style="display: none;">Board created successfully!</p>
+        <p id="error-msg" style="display: none; color: red;">Error creating board. Please try again.</p>
       </form>
     </div>
   </div>

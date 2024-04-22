@@ -12,6 +12,11 @@
         <form id="registration-form">
             <input type="text" id="new-username" placeholder="New Username" required>
             <input type="password" id="new-password" placeholder="New Password" required>
+            <!-- Add a select dropdown for role selection -->
+            <select id="new-role" required>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
             <button type="submit">Register</button>
         </form>
         <a href="login.html" id="back-to-login">Back to Login</a>

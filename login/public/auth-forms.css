@@ -53,8 +53,6 @@ body {
     color: #007bff;
   }
   
-  /* Additional styles for the registration page */
-
 #registration-page {
     max-width: 400px;
     margin: 50px auto;
@@ -102,4 +100,5 @@ body {
     text-decoration: none;
     color: #007bff;
   }
+  
   

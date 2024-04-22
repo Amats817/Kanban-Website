@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // MongoDB connection
-const connect = mongoose.connect("mongodb://localhost:27017/login-system");
+const connect = mongoose.connect("mongodb://localhost:27017/project-manager");
 
 // Check db connection and handle errors
 connect.then(() => {
@@ -19,10 +19,44 @@ const Loginschema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    role: {
+        type: String,
+        enum: ['admin', 'user'],
+        default: 'user'
+    }
+});
+
+const boardSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User' // Reference to the User model
+    },
+    tasks: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Task' // Reference to the Task model
+    }]
+});
+
+const taskSchema = new mongoose.Schema({
+    location: {
+        type: String,
+        enum: ['TODO', 'DOING', 'FINISHED'],
+        default: 'TODO'
+    },
+    text: {
+        type: String,
+        required: true
     }
 });
 
 // Collection model
 const UserModel = mongoose.model("User", Loginschema);
+const BoardModel = mongoose.model("Board", boardSchema);
+const TaskModel = mongoose.model("Task", taskSchema);
 
-module.exports = UserModel;
+module.exports = { UserModel, BoardModel, TaskModel };

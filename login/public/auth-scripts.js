@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const name = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-    
+
             try {
                 const response = await fetch('/login', {
                     method: 'POST',
@@ -16,33 +16,31 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                     body: JSON.stringify({ name, password })
                 });
-    
+
                 if (!response.ok) {
                     throw new Error('Login failed');
                 }
-    
-                const contentType = response.headers.get('content-type');
-                if (contentType && contentType.includes('application/json')) {
-                    const result = await response.json();
-                    alert(result.message);
-                    console.log('Redirecting to dashboard...');
-                    window.location.href = 'dashboard.html';
-                } else {
-                    throw new Error('Invalid response format');
-                }
+
+                const result = await response.json();
+                alert(result.message);
+                console.log('Redirecting...');
+
+                // Redirect based on the role
+                window.location.href = result.redirectTo;
             } catch (err) {
                 console.error('Error:', err);
                 alert('An error occurred during login');
             }
         });
     }
-      
+
 
     if (registrationForm) {
         registrationForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = document.getElementById('new-username').value;
             const password = document.getElementById('new-password').value;
+            const role = document.getElementById('new-role').value; // Get selected role
 
             try {
                 const response = await fetch('/register', {
@@ -50,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ name, password })
+                    body: JSON.stringify({ name, password, role }) // Include role in the request
                 });
 
                 const result = await response.json();
@@ -62,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (err) {
                 console.error('Error:', err);
+                alert('An error occurred during registration');
             }
         });
     }
