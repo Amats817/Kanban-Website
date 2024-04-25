@@ -81,6 +81,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     // deleting a board
     boardsContainer.addEventListener("click", async (e) => {
       if (e.target.classList.contains("delete-board-btn")) {
+
+        const isAdmin = localStorage.getItem("isAdmin");
+        if (isAdmin !== "true") {
+          alert("Only admins can delete boards.");
+          return;
+        }
+        
         const boardItem = e.target.closest(".board-item");
         const boardId = boardItem.dataset.boardId;
   
